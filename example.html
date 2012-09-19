@@ -1,0 +1,69 @@
+<html>
+<head>
+	<style type="text/css">
+	
+	.tooMuchText {
+		overflow: hidden;
+		white-space: nowrap;
+		display: block;
+
+		text-align: left;
+		text-overflow: ellipsis;
+		cursor: default;
+	}
+
+	</style>
+
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js"></script> -->
+	<script type="text/javascript" src="jQuery.hoverForMore.min.js"></script>
+	
+	<script type="text/javascript">
+	$(function()}
+	{
+		$(".tooMuchText1").hoverForMore({
+			"speed": 300,
+			"loop": false,
+		});
+
+		$(".tooMuchText2").hoverForMore({
+			"speed": 100,
+		});
+
+/*
+		$(".tooMuchText3").hoverForMore({
+			"alwaysOn":true,
+			"gap": "100",
+			"speed": 20,
+		});
+*/
+	});
+	</script>
+	
+</head>
+<body>
+
+	<div style="width: 390px; margin-left: 50px; background-color: #ddd;">
+	
+		<div class="tooMuchWrapper"><span class="tooMuchText tooMuchText1">Got too much text to fit in your content area? Just hover for more!</span></div>
+	</div>
+
+	<br>
+	<br>
+	<br>
+	
+	<div style="background-color: #cac;">
+		
+		<div>My favorite Fiona Apple album? Why, it's <div style="width: 400px; display:inline-block;"><i class="tooMuchText tooMuchText2">When the pawn hits the conflicts he thinks like a king What he knows throws the blows when he goes to the fight And he'll win the whole thing 'fore he enters the ring There's no body to batter when your mind is your might So when you go solo, you hold your own hand And remember that depth is the greatest of heights And if you know where you stand, then you know where to land And if you fall it won't matter, cuz you'll know that you're right</i></div>!</div>
+	
+	</div>
+	
+<!--
+	<div style="width:100%;">
+		<div class="tooMuchText3" style="width:100%; text-align: center;">&lt;marquee&gt;, eat your heart out</div>
+	</div>
+-->
+
+</body>
+</html>
