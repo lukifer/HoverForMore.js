@@ -2,11 +2,6 @@ HoverForMore.js
 ===============
 
 #### { [text-overflow: ellipsis;][] } on steroids ####
-
-  
-  
-  
-  
   
 Example: http://lukifer.github.com/HoverForMore.js
 
@@ -45,8 +40,8 @@ Usage
 ```Javascript
 $(".overflowing").hoverForMore({
 	speed: 60.0,		// Measured in pixels-per-second
-	loop: true,		// Scroll to the end and stop, or loop continuously?
-	gap: 15,		// When looping, insert this many pixels of blank space
+	loop: true,			// Scroll to the end and stop, or loop continuously?
+	gap: 15,			// When looping, insert this many pixels of blank space
 	removeTitle: true,	// By default, remove the title, as a tooltip is redundant
 	snapback: true,		// Animate when de-activating, as opposed to instantly reverting
 	addStyles: true,	// Auto-add CSS; leave this on unless you need to override default styles
