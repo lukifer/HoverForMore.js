@@ -1,8 +1,13 @@
 HoverForMore.js
 ===============
 
-## { text-overflow: ellipsis; } on steroids ##
+#### { [text-overflow: ellipsis;][] } on steroids ####
 
+  
+  
+  
+  
+  
 Example: http://lukifer.github.com/HoverForMore.js
 
  * Requires your choice of [jQuery][] or [Zepto][].
@@ -76,11 +81,12 @@ Version History
 
 Contact
 -------
-Luke Dennis
-http://lukifer.net
+Luke Dennis  
+http://lukifer.net  
 [@lkfr][]
 
  
+[text-overflow: ellipsis;]: http://www.quirksmode.org/css/textoverflow.html
 [jQuery]: http://jquery.com
 [Zepto]: http://zeptojs.com
 [@lkfr]: http://twitter.com/lkfr
