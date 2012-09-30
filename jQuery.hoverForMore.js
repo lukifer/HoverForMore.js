@@ -1,12 +1,13 @@
-// jQuery.hoverForMore v1.0
+// HoverForMore.js v1.0
 // --------------------------
 // Author: Luke Dennis
-// Website: http://lukifer.net/hover-for-more
+// Website: http://lukifer.github.com/HoverForMore.js
 // License: http://opensource.org/licenses/mit-license.php
 
 ;(function($, window, undefined)
 {
 	var isjQuery = !!$.fn.jquery;
+	var isFirefox = !!navigator.userAgent.match(/Firefox/);
 
 	var defaults = {
 		"speed": 60.0,
@@ -16,6 +17,7 @@
 		"snapback": true,
 		"alwaysOn": false,
 		"addStyles": true,
+		"target": false,
 		"startEvent": isjQuery ? "mouseenter" : "mouseover",
 		"stopEvent": isjQuery ? "mouseleave" : "mouseout",
 	};
@@ -28,6 +30,8 @@
 		var originalOverflow, originalOverflowParent, startTime;
 
 		options = $.extend({}, defaults, options);
+
+		var targetSelector = options.target || self.selector;
 		
 		// Always-on without looping is just silly
 		if(options.alwaysOn)
@@ -76,11 +80,15 @@
 			break;
 		}
 		
-		// Non-animation fallback. TODO: Animate with jQuery instead?
+		// Non-animation fallback. TODO: Animate with jQuery instead
 		if(!hasAnimation)
 		{
 			// Fallback to title text hover
-			$item.attr("title", $item.text());
+			$(self.selector).each(function(n, el)
+			{
+				var $el = $(el);
+				$el.attr("title", $el.text());
+			});
 			return self;
 		}
 		
@@ -94,17 +102,28 @@
 			head.appendChild($keyframeStyleReverse[0]);
 		}
 		
+		// For non-loop mode, set an empty transform value (FireFox needs this to transition properly)
+		else
+		{
+			$(self.selector).each(function(n, el)
+			{	el.style[transformString] = 'translateX(0px)';
+			});
+		}
+		
+		
 		// Attach start event
-		$(self.selector).live(options.startEvent, function(e)
+		$(targetSelector).live(options.startEvent, function(e)
 		{
 			startTime = (new Date()).getTime();
 		
 			// Get hovered item, and ensure that it contains an overflown item
-			var $item = $(this);
-			var $parent = $item.parent();
-			var pixelDiff = this.scrollWidth - $item.width();
+			var $item = $(options.target ? self.selector : this).filter(":first");
+			if(!$item.length) return true;
 
-			if(pixelDiff <= 0) // && !options.alwaysOn
+			var $parent = $item.parent();
+			var pixelDiff = $item[0].scrollWidth - $item.width();
+
+			if(pixelDiff <= 0) // && !options.alwaysOn // TODO: <marquee> without overflow
 				return true;
 			
 			if(options.removeTitle) $item.removeAttr("title");
@@ -141,7 +160,7 @@
 				// Go go gadget animation!
 				var sec = contentWidth / parseFloat(options.speed);
 
-				this.style[animationString] = 'hoverForMoreSlide '+sec+'s linear infinite';
+				$item[0].style[animationString] = 'hoverForMoreSlide '+sec+'s linear infinite';
 			}
 
 			else // if(!options.loop)
@@ -149,17 +168,27 @@
 				var sec = pixelDiff / parseFloat(options.speed);
 
 				// Apply transition + transform instead of looping
-				this.style[transitionString] = cssPrefix+'transform '+sec+'s linear';
-				this.style[transformString] = 'translateX(-'+pixelDiff+'px)';				
+				$item[0].style[transitionString] = cssPrefix+'transform '+sec+'s linear';
+				
+				// Alas, Firefox won't honor the transition immediately
+				if(!isFirefox)
+					$item[0].style[transformString] = 'translateX(-'+pixelDiff+'px)';
+				
+				else setTimeout(function()
+				{
+					$item[0].style[transformString] = 'translateX(-'+pixelDiff+'px)';
+				}, 0);
 			}
 		});
 
 
+
 		// Attach stop event
 		if(!options.alwaysOn)
-		$(self.selector).live(options.stopEvent, function(e)
+		$(targetSelector).live(options.stopEvent, function(e)
 		{
-			var $item = $(this);
+			var $item = $(options.target ? self.selector : this).filter(":first");
+			if(!$item.length) return true;
 		
 			if(options.loop)
 			{
@@ -180,7 +209,7 @@
 					$keyframeStyleReverse[0].innerHTML = keyframes;
 	
 					var sec = (switchDirection ? contentWidth-offsetX : offsetX) * 0.2 / parseFloat(options.speed);
-					this.style[animationString] = 'hoverForMoreSlideReverse '+(sec>1?1:sec)+'s linear';
+					$item[0].style[animationString] = 'hoverForMoreSlideReverse '+(sec>1?1:sec)+'s linear';
 	
 					$item.removeClass("scrolling");
 	
@@ -192,12 +221,12 @@
 							.remove();
 						$item.css("overflow", originalOverflow);
 						$item.parent().css("overflow", originalOverflowParent);
-					}, sec * 1000 - -50);
+					}, sec * 1000);
 				}
 				
 				else // if(!options.snapback)
 				{
-					this.style[animationString] = '';
+					$item[0].style[animationString] = '';
 
 					$item
 						.css("overflow", originalOverflow)
@@ -210,22 +239,35 @@
 			
 			else // if(!options.loop)
 			{
+				var timeDiff = ((new Date()).getTime() - startTime) / 1000.0;
+				var match = $item[0].style[transitionString].match(/transform (.*)s/);
+				var sec = (match && match[1] && parseFloat(match[1]) < timeDiff) ? parseFloat(match[1]) : timeDiff;
+				sec *= 0.5;
+
 				if(!options.snapback)
-					this.style[transitionString] = '';								
+					$item[0].style[transitionString] = '';
+				else
+					$item[0].style[transitionString] = cssPrefix+'transform '+sec+'s linear';
 
 				$item.removeClass("scrolling")
-				this.style[transformString] = 'translateX(0px)';
+				
+				// Firefox needs a delay for the transition to take effect
+				if(!isFirefox)
+					$item[0].style[transformString] = 'translateX(0px)';
+					
+				else setTimeout(function(){
+					$item[0].style[transformString] = 'translateX(0px)';
+				}, 0);
 				
 				if(!options.snapback)
 					$item.css("overflow", originalOverflow);
 
 				else // if(options.snapback)
 				{
-					var sec = (this.scrollWidth - $item.width()) / parseFloat(options.speed);
 					setTimeout(function() {
 						if($item.is(".scrolling")) return;
 						$item.css("overflow", originalOverflow);
-					}, (sec * 1000 - -50));
+					}, sec * 1000);
 				}
 			}
 		
