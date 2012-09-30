@@ -11,7 +11,7 @@
 
 	var defaults = {
 		"speed": 60.0,
-		"gap": 15,
+		"gap": 20,
 		"loop": true,
 		"removeTitle": true,
 		"snapback": true,

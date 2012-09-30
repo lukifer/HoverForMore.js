@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>HoverForMore.js</title>
+	<meta name="description" content="{ text-overflow: ellipsis; } on steiroids">
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link href="assets/main.css" type="text/css" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Archivo+Black|Archivo+Narrow:400,700" rel="stylesheet" type="text/css">
+	<link href="assets/prettify.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="assets/prettify.js"></script>
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<!--
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js"></script>
+	-->
+	<script type="text/javascript" src="jQuery.hoverForMore.js"></script>
+	<script type="text/javascript">
+		$(function()
+		{
+			prettyPrint();
+
+			$("#tooMuchText1").hoverForMore({
+				"speed": 300,
+				"loop": false
+			});
+
+			$("#tooMuchText2").hoverForMore({
+				"speed": 150,
+				"gap": 30,
+				"target": "#album"
+			});
+		});
+	</script>
+	
+	<style type="text/css">
+		.tooMuchText {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	</style>
+
+</head>
+<body>
+
+<div id="container">
+	
+	<a id="ribbon" href="http://github.com/lukifer/jQuery.hoverForMore"></a>
+
+	<div class="row">
+		<div class="column grid_12">
+
+			<div id="logo">
+				<h1>HoverForMore.js</h1>
+
+				<div class="subtitle tooMuchWrapper">
+					<div id="tooMuchText1" class="tooMuchText">
+						Too much content to fit in a single line? Just hover for more!
+					</div>
+				</div>
+		
+				<h4 class="subtitle" style="display:none;"><code>{ <a href="http://www.quirksmode.org/css/textoverflow.html">text-overflow: ellipsis;</a> }</code> on steroids<!--  and infused with the power of Earth's yellow sun --></h4>
+	
+			</div> <!-- #logo -->
+
+		</div>
+	</div>
+
+
+
+	<div class="row">
+		
+		<div class="column grid_9">
+
+			<h3>Features</h3>
+			<ul>
+				<li>Two handy modes: Scroll-To-End (above) and Looping (right)</li>
+				<li>Requires <a href="http://jquery.com"><b>jQuery</b></a> or <a href="http://zeptojs.com"><b>Zepto</b></a>.</li>
+				<li>Lightweight: Less than 2k when minified+gzipped</li>
+				<li>Uses CSS3 animations &amp; transitions, with GPU acceleration where available</li>
+				<li>Supports all modern browsers: Chrome, Firefox, Safari, IE10, iOS, &amp; Android</li>
+				<li>Degrades gracefully on IE7-IE9</li>
+				<li>MIT Licensed</li>
+			</ul>
+
+			<div id="downloads">
+				<a href="jQuery.hoverForMore.js" download="jQuery.hoverForMore.js" class="button">
+					<span>&#11015;</span>
+					Download (Production)</a>
+				<a href="jQuery.hoverForMore.min.js" download="jQuery.hoverForMore.min.js" class="button">
+					<span>&#11015;</span>
+					Download (Development)</a>
+			</div>
+			
+			<h3>Coming Soon</h3>
+			<ul>
+				<li>Full support on IE7-9</li>
+				<li>You tell me!</li>
+			</ul>
+		</div>
+
+		<div class="column grid_3">
+
+			<div id="curved_arrow"></div>
+	
+			<h4>Looping Example</h4>
+			<div id="album">
+				<a href="http://www.amazon.com/Express-Dissenting-Political-Viewpoint-Through/dp/B000QQVNL8/ref=sr_1_3?ie=UTF8&qid=1348964456&sr=8-3"><img src="assets/origami.jpg" width="140" height="140" style="display:block; margin: 0px auto 10px;" alt="" border="0" /></a>
+				
+				<div class="details">
+					<div id="tooMuchText2" class="tooMuchText" style="-webkit-transform: translateZ(0);">How To Express Your Dissenting Political Viewpoint Through Origami</div>
+				</div>
+			</div>
+	
+		</div>
+			
+	</div>
+	
+	
+	<div class="row">
+
+		<div class="column grid_12">
+			<a name="usage"></a>
+			<h2>Usage</h2>
+		</div>
+
+		<div class="column grid_8">
+<pre class="prettyprint">&lt;!-- HTML --&gt;
+&lt;div style="width: 100px;"&gt;
+	&lt;div class="overflowing"&gt;
+		Lorem ipsum dolor sit amet, consectetur adipiscing.
+	&lt;/div&gt;
+&lt;/div&gt;</pre>
+		</div>
+
+		<div class="column grid_4">
+<pre class="prettyprint lang-css">/* CSS */
+.overflowing {
+	white-space: none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+</pre>
+		</div>
+	</div>
+	
+	
+	<div class="row">	
+		<div class="column grid_12">
+<pre class="prettyprint">// Javascript
+$(".overflowing").hoverForMore({
+	speed: 60.0,		// Measured in pixels-per-second
+	loop: true,		// Scroll to the end and stop, or loop continuously?
+	gap: 20,		// When looping, insert this many pixels of blank space
+	target: false,		// Hover on this CSS selector instead of the text line itself
+	removeTitle: true,	// By default, remove the title attribute, as a tooltip is redundant
+	snapback: true,		// Animate when de-activating, as opposed to instantly reverting
+	addStyles: true,	// Auto-add CSS; leave this on unless you need to override default styles
+	alwaysOn: false,	// If you're insane, you can turn this into a &lt;marquee&gt; tag. (Please don't.)
+
+	// In case you want to alter the events which activate and de-activate the effect:
+	startEvent: "mouseenter",
+	stopEvent: "mouseleave"
+});
+</pre>
+		</div>
+	</div>
+
+
+
+	<div id="faq" class="row">
+		<div class="column grid_12">
+			<h2>Fervently Asked Questions</h2>
+		</div>
+		
+		<div class="column grid_4">
+			<p><b>Q: Do I need to add any CSS of my own for this to work?</b></p>
+			<p>A: Technically, no. Target a block element with too much text to fit within its parent, and this plugin does the rest.</p>
+			<p>However, to prevent a <a href="http://en.wikipedia.org/wiki/Flash_of_unstyled_content">Flash of Unstyled Content</a> and support users without Javascript, it is strongly recommended you also add the three CSS rules displayed <a href="#usage">above</a>.</p>
+		</div>
+
+		<div class="column grid_4">
+			<p><b>Q: I'm seeing a visual flicker when hovering on items in Chrome/Safari.</b></p>
+			<p>A: That&#39;s not a question. But it's a known issue with GPU accelerated CSS3 on WebKit.
+			<p>You can correct this by adding <code>-webkit-transform: translateZ(0);</code> to the <code>&lt;body&gt;</code>. If that doesn&#39;t work, try adding <code>-webkit-transform-style: preserve-3d;</code> or <code>-webkit-transform-style: flat;</code> to the affected items.</p>
+		</div>
+		
+		<div class="column grid_4">
+			<p><b>Q: Shouldn&#39;t you just design your layout around your content, thus making this plugin unnecessary?</b></p>
+			<p>A: Yes. No. Shut up. Hey, what&#39;s that behind you? ...No, the other behind you.</p>
+		</div>
+	</div>
+
+	
+	<div class="row">
+		<div class="column grid_12">
+			<h2>Version History</h2>
+			<h3>v1.1</h3>
+			<ul>
+				<li>Attaching hover target to arbitrary CSS selector</li>
+				<li>Firefox bug fixes</li>
+			</ul>
+			<h3>v1.0</h3>
+			<ul>
+				<li>Initial release into the wild</li>
+				<li>Documentation and examples</li>
+			</ul>
+		</div>
+	</div>
+	
+</div>	
+
+
+<div id="footer">
+
+	<div class="shadow"></div>
+
+	<div class="row">
+		<div class="column grid_12">
+			<a class="me" href="http://lukifer.net/"><img width="60" height="60" border="0" alt="Lukifer"
+				src="http://www.gravatar.com/avatar/ce1509ecb78ccb5f2b4f002eda3afb12.png"></a>
+
+			<div class="tagline tagline_left">
+				<p>Brought to you by <a href="http://lukifer.net/">Lukifer</a></p>
+				<p>Follow on <a href="http://twitter.com/lkfr" alt="@lkfr">Twitter</a> or <a href="https://github.com/lukifer" alt="@lukifer">GitHub</a></p>
+			</div>
+
+			<div class="tagline tagline_right">
+				<p>Report bugs via the <a href="https://github.com/lukifer/HoverForMore.js/issues">Issue Tracker</a></p>
+				<p>Donations welcomed via <a href="https://www.gittip.com/lukifer/">GitTip</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lukifer@mail.com&item_name=HoverForMore&currency_code=USD">PayPal</a></p>
+			</div>
+
+			<a class="github" href="http://github.com"><img src="assets/github.png" width="130" height="60" alt="GitHub: Social Coding" /></a>
+		</div>
+
+	</div>
+
+</div>
+	
+
+	
+
+</body>
+</html>
