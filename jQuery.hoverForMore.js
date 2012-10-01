@@ -1,13 +1,15 @@
-// HoverForMore.js v1.0
-// --------------------------
+// HoverForMore.js v1.2
+// --------------------
 // Author: Luke Dennis
 // Website: http://lukifer.github.com/HoverForMore.js
 // License: http://opensource.org/licenses/mit-license.php
 
-;(function($, window, undefined)
+;(function($, window)
 {
 	var isjQuery = !!$.fn.jquery;
-	var isFirefox = !!navigator.userAgent.match(/Firefox/);
+
+	var isFirefox = /Firefox/.test(navigator.userAgent);
+	var isMobile  = /Mobile/ .test(navigator.userAgent);
 
 	var defaults = {
 		"speed": 60.0,
@@ -18,8 +20,8 @@
 		"alwaysOn": false,
 		"addStyles": true,
 		"target": false,
-		"startEvent": isjQuery ? "mouseenter" : "mouseover",
-		"stopEvent": isjQuery ? "mouseleave" : "mouseout",
+		"startEvent": isMobile ? "touchstart" : (isjQuery ? "mouseenter" : "mouseover"),
+		"stopEvent":  isMobile ? "touchend"   : (isjQuery ? "mouseleave" : "mouseout" )
 	};
 
 
@@ -38,21 +40,6 @@
 		{
 			options.loop = true;
 			options.startEvent = "startLooping"; // only triggered programmatically
-		}
-
-		// Auto-add ellipsis and such
-		if(options.addStyles)
-		{
-			head.appendChild($(
-			'<style type="text/css">'
-			+	self.selector+'{'
-			+		'cursor:default;'
-			+		'text-align:left;'
-			+		'display:block;'
-			+		'overflow:hidden;'
-			+		'white-space:nowrap;'
-			+		'text-overflow:ellipsis;'
-			+	'}</style>')[0]);
 		}
 
 		// Detect CSS prefix and presence of CSS animation
@@ -78,6 +65,22 @@
 			cssPrefix = '-' + pfx.toLowerCase() + '-';
 			hasAnimation = true;
 			break;
+		}
+
+		// Auto-add ellipsis and such
+		if(options.addStyles)
+		{
+			head.appendChild($(
+			'<style type="text/css">'
+			+	self.selector+'{'
+			+		'cursor:default;'
+			+		'text-align:left;'
+			+		'display:block;'
+			+		'overflow:hidden;'
+			+		'white-space:nowrap;'
+			+		'text-overflow:ellipsis;'
+			+		cssPrefix+'user-select: none;'
+			+	'}</style>')[0]);
 		}
 		
 		// Non-animation fallback. TODO: Animate with jQuery instead
@@ -133,6 +136,9 @@
 			originalOverflow       = originalOverflow       || $item  .css("overflow");
 			
 			$parent.css("overflow", "hidden");
+			if(isMobile && options.addStyles)
+				$('body').css(cssPrefix+"user-select", "none");
+
 			$item
 				.css("overflow", "visible")
 				.addClass("scrolling");
@@ -214,14 +220,20 @@
 					$item.removeClass("scrolling");
 	
 					// After animation resolves, restore original overflow setting, and remove the cloned element
-					setTimeout(function(){
+					setTimeout(function()
+					{
 						if($item.is(".scrolling")) return;
+						
 						$item
 							.children(".hoverForMoreContent")
 							.remove();
+							
 						$item.css("overflow", originalOverflow);
 						$item.parent().css("overflow", originalOverflowParent);
-					}, sec * 1000);
+
+						if(isMobile && options.addStyles)
+							$('body').css(cssPrefix+"user-select", 'text');
+					}, (sec * 1000) - -50);
 				}
 				
 				else // if(!options.snapback)
@@ -234,6 +246,9 @@
 						.remove();			
 							
 					$item.parent().css("overflow", originalOverflowParent);
+
+					if(isMobile && options.addStyles)
+						$('body').css(cssPrefix+"user-select", 'text');
 				}
 			}
 			
@@ -260,13 +275,22 @@
 				}, 0);
 				
 				if(!options.snapback)
+				{
 					$item.css("overflow", originalOverflow);
+
+					if(isMobile && options.addStyles)
+						$('body').css(cssPrefix+"user-select", 'text');
+				}
 
 				else // if(options.snapback)
 				{
-					setTimeout(function() {
+					setTimeout(function()
+					{
 						if($item.is(".scrolling")) return;
 						$item.css("overflow", originalOverflow);
+
+						if(isMobile && options.addStyles)
+							$('body').css(cssPrefix+"user-select", 'text');
 					}, sec * 1000);
 				}
 			}

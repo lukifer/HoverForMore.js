@@ -189,10 +189,16 @@ a.button:hover span {
 	color: white;
 	width: 200px;
 	margin: 0 auto;
-}
-#album .details {
 	text-align: center;
 	-webkit-transform: translateZ(0);
+}
+#album .art {
+	background-image: url('origami.jpg');
+	display: block;
+	margin: 0 auto;
+	min-height: 140px;
+	height: 140px;
+	width: 140px;
 }
 
 code { font-weight: bold; color: black; }
