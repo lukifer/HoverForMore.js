@@ -211,8 +211,15 @@ pre {
 	box-shadow: inset 0px 0px 8px 2px #222;
 	background-color: rgba(11, 12, 13, 0.6) !important;
 }
-pre.prettyprint xmp {
-	margin: 0;
+@media only screen and (max-device-width: 480px) {
+	pre.prettyprint {
+		font-size: 10px;
+		line-height: 12px;
+	}
+	pre.prettyprint span.com,
+	pre.prettyprint span.pln {
+		white-space: pre;
+	}
 }
 
 #faq {

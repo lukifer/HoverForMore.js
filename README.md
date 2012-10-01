@@ -15,6 +15,7 @@ Example: http://lukifer.github.com/HoverForMore.js
 
 ### Coming Soon ###
  * Full support for IE7-9
+ * Configurable snapback speed
  * You tell me!
 
 
@@ -78,6 +79,9 @@ A: Yes. No. Shut up. Hey, what's that behind you? ...No, the other behind you.
 
 Version History
 ---------------
+### v1.2 ###
+ * Mobile fixes
+
 ### v1.1 ###
  * Attaching hover target to arbitrary CSS selector
  * Firefox bug fixes
