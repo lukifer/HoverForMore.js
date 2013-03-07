@@ -87,10 +87,10 @@
 		if(!hasAnimation)
 		{
 			// Fallback to title text hover
-			$(self.selector).each(function(n, el)
+			$(options.target || self.selector).each(function(n, el)
 			{
 				var $el = $(el);
-				$el.attr("title", $el.text());
+				$el.attr("title", $.trim($el.text()));
 			});
 			return self;
 		}
