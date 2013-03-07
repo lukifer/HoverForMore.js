@@ -1,5 +1,5 @@
-// HoverForMore.js v1.2
-// --------------------
+// HoverForMore.js v1.2.1
+// ----------------------
 // Author: Luke Dennis
 // Website: http://lukifer.github.com/HoverForMore.js
 // License: http://opensource.org/licenses/mit-license.php
