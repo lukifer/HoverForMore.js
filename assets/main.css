@@ -185,7 +185,9 @@ a.button:hover span {
 }
 
 #album .details {
-	font-size: 12px;
+	font-size: 14px;
+	font-weight: normal;
+	font-family: Helvetica, Arial, sans-serif;
 	color: white;
 	width: 200px;
 	margin: 0 auto;
@@ -193,9 +195,8 @@ a.button:hover span {
 	-webkit-transform: translateZ(0);
 }
 #album .art {
-	background-image: url('origami.jpg');
 	display: block;
-	margin: 0 auto;
+	margin: 0 auto 5px;
 	min-height: 140px;
 	height: 140px;
 	width: 140px;

@@ -17,6 +17,10 @@ Example: http://lukifer.github.com/HoverForMore.js
  * Full support for IE7-9
  * Configurable snapback speed
  * You tell me!
+ 
+### Known Bugs ###
+ * Does not support traversal; use $(".items li").hoverForMore(), not $(".items").find("li").hoverForMore();
+ * Does not yet support pre-WebKit Opera
 
 
 Usage
@@ -79,6 +83,9 @@ A: Yes. No. Shut up. Hey, what's that behind you? ...No, the other behind you.
 
 Version History
 ---------------
+### v1.2.1 ###
+ * Small fixes to title hover fallback
+
 ### v1.2 ###
  * Mobile fixes
 

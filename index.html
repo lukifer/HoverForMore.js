@@ -92,6 +92,12 @@
 					<span>&#11015;</span>
 					Download (Development)</a>
 			</div>
+
+			<h3>Known Bugs</h3>
+			<ul>
+				<li>Does not support traversal; use $(".items li").hoverForMore(), not $(".items").find("li").hoverForMore();</li>
+				<li>Does not yet support pre-WebKit Opera</li>
+			</ul>
 			
 			<h3>Coming Soon</h3>
 			<ul>
@@ -107,10 +113,10 @@
 	
 			<h4>Looping Example</h4>
 			<div id="album">
-				<div class="art"></div>
+				<img class="art" src="assets/convenience.jpg" width="140" height="140" />
 				
 				<div class="details">
-					<div id="tooMuchText2" class="tooMuchText" style="-webkit-transform: translateZ(0);">How To Express Your Dissenting Political Viewpoint Through Origami</div>
+					<div id="tooMuchText2" class="tooMuchText" style="-webkit-transform: translateZ(0);">Give Me Convenience or Give Me Death</div>
 				</div>
 			</div>
 	
