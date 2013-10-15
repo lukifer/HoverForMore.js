@@ -48,6 +48,7 @@
 			transitionString = 'transition',
 			transformString = 'transform',
 			keyframePrefix = '',
+			cssPrefix = '',
 			domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
 			pfx  = '';
 	
